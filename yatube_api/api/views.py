@@ -51,7 +51,11 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 class ListCreateViewSet(mixins.ListModelMixin,
                         mixins.CreateModelMixin,
                         viewsets.GenericViewSet):
-    """Вьюсет для подписок"""
+    """Вьюсет для подписок только для
+    аутентифицированных пользователей
+    CreateModelMixin — создать объект (для обработки запросов POST)
+    ListModelMixin — вернуть список объектов (для обработки запросов GET)
+    """
     pass
 
 
