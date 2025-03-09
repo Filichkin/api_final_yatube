@@ -31,7 +31,7 @@ class Post(models.Model):
         )
 
     def __str__(self):
-        return self.text
+        return self.text[:15]
 
 
 class Comment(models.Model):
@@ -51,6 +51,9 @@ class Comment(models.Model):
         auto_now_add=True,
         db_index=True
         )
+
+    def __str__(self):
+        return self.text[:15]
 
 
 class Follow(models.Model):
@@ -76,3 +79,6 @@ class Follow(models.Model):
                 name='unique_subscribe'
                 ),
             )
+
+    def __str__(self):
+        return f'Subscribe: {self.user.username} for {self.following.username}'
