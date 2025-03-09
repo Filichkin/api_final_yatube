@@ -30,7 +30,7 @@ class PostSerializer(serializers.ModelSerializer):
     image = Base64ImageField(
         required=False,
         allow_null=True
-        )
+    )
 
     class Meta:
         model = Post
@@ -61,11 +61,11 @@ class FollowSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='username',
         default=serializers.CurrentUserDefault()
-        )
+    )
     following = serializers.SlugRelatedField(
         slug_field='username',
         queryset=User.objects.all()
-        )
+    )
 
     class Meta:
         model = Follow
@@ -75,8 +75,8 @@ class FollowSerializer(serializers.ModelSerializer):
                 queryset=Follow.objects.all(),
                 fields=('user', 'following'),
                 message='Подписка уже существует'
-                ),
-            )
+            ),
+        )
 
     def validate(self, data):
         if data['following'] == self.context['request'].user:
