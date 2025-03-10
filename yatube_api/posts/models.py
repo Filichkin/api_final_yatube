@@ -70,6 +70,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+        ordering = ('created',)
 
     def __str__(self):
         return self.text[:15]
