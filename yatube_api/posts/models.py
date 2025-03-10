@@ -9,6 +9,10 @@ class Group(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField()
 
+    class Meta:
+        verbose_name = 'Group'
+        verbose_name_plural = 'Groups'
+
     def __str__(self):
         return self.title
 
@@ -36,6 +40,11 @@ class Post(models.Model):
         blank=True, null=True
     )
 
+    class Meta:
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
+        ordering = ('-pub_date',)
+
     def __str__(self):
         return self.text[:15]
 
@@ -57,6 +66,10 @@ class Comment(models.Model):
         auto_now_add=True,
         db_index=True
     )
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
 
     def __str__(self):
         return self.text[:15]
@@ -83,6 +96,10 @@ class Follow(models.Model):
             models.UniqueConstraint(
                 fields=('user', 'following'),
                 name='unique_subscribe'
+            ),
+            models.CheckConstraint(
+                check=~models.Q(user=models.F('following')),
+                name='check_not_self_follow',
             ),
         )
 
